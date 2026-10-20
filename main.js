@@ -4,12 +4,13 @@ import { cover } from "./covers.js";
 
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
-// Системное «уменьшение движения» уважаем, но даём включить анимацию вручную
+// Анимация всегда полная; упростить можно только вручную кнопкой,
+// которую видят те, у кого в системе включено «уменьшение движения»
 const systemCalm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const motionPref = (() => { try { return localStorage.getItem("motion"); } catch { return null; } })();
-const reduced = systemCalm && motionPref !== "full";
+const reduced = motionPref === "calm";
 document.documentElement.classList.toggle("calm", reduced);
-if (systemCalm) {
+if (systemCalm || reduced) {
   const b = document.createElement("button");
   b.className = "motion-toggle glass";
   b.textContent = reduced ? "✦ Включить анимацию" : "Упростить анимацию";
