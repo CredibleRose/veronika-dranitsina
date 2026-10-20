@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Вероника Драницина — продуктовый дизайнер</title>
+  <meta name="description" content="Вероника Драницина — портфолио продуктового дизайнера: UI/UX, motion, 3D и дизайн-системы.">
+  <meta name="theme-color" content="#f3eee8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "animejs": "https://cdn.jsdelivr.net/npm/animejs@4.3.0/dist/bundles/anime.esm.min.js",
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Фон: живые цветовые пятна, через которые просвечивает стекло -->
+  <div class="mesh" aria-hidden="true">
+    <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="blob b4"></i><i class="blob b5"></i>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Заставка как открывающие титры ролика -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-count"><span id="introNum">00</span></div>
+    <div class="intro-name" id="introName"></div>
+    <div class="intro-line"><i></i></div>
+    <div class="intro-hint">Портфолио · 2026</div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"><div class="cursor-ring"><span class="cursor-label"></span></div><div class="cursor-dot"></div></div>
+
+  <!-- Dynamic Island -->
+  <button class="island glass" id="island" aria-label="Статус и контакты">
+    <span class="island-avatar"><img id="islandPhoto" src="assets/photo.png" alt=""></span>
+    <span class="island-text"><b id="islandTitle">Главная</b><small id="islandSub">Открыта к проектам</small></span>
+    <span class="island-extra">
+      <span class="island-live"><i></i>online</span>
+      <span class="island-mail" id="islandMail"></span>
+    </span>
+    <svg class="island-ring" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle class="p" id="islandProgress" cx="12" cy="12" r="9" /></svg>
+  </button>
+
+  <!-- Tab bar в стиле iOS 26 -->
+  <nav class="tabbar glass" id="tabbar" data-liquid aria-label="Разделы">
+    <span class="tab-pill" id="tabPill" aria-hidden="true"></span>
+    <a href="#home" data-tab="home"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z"/></svg><span>Главная</span></a>
+    <a href="#work" data-tab="work"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg><span>Работы</span></a>
+    <a href="#skills" data-tab="skills"><svg viewBox="0 0 24 24"><path d="M12 3.5 14.4 9l5.9.5-4.5 3.9 1.4 5.8L12 16.1l-5.2 3.1 1.4-5.8-4.5-3.9L9.6 9z"/></svg><span>Навыки</span></a>
+    <a href="#about" data-tab="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.8-4 3.8-6 7.5-6s6.7 2 7.5 6"/></svg><span>Обо мне</span></a>
+    <a href="#contact" data-tab="contact"><svg viewBox="0 0 24 24"><path d="M4 6.5h16v11H4z"/><path d="m4.5 7 7.5 6 7.5-6"/></svg><span>Контакт</span></a>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home" data-title="Главная">
+      <canvas class="hero-3d" id="hero3d" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <div class="hero-top">
+          <span class="chip glass"><i class="dot-live"></i><span id="heroStatus"></span></span>
+          <span class="chip glass mono" id="heroCity"></span>
+        </div>
+        <h1 class="hero-name" id="heroName" aria-label=""></h1>
+        <div class="hero-bottom">
+          <p class="hero-tag" id="heroTag"></p>
+          <div class="hero-photo glass" data-tilt>
+            <div class="phone-island"></div>
+            <img id="heroPhoto" alt="Портрет дизайнера">
+            <div class="hero-photo-badge glass"><b>5+</b><span>лет<br>опыта</span></div>
+          </div>
+          <div class="hero-side">
+            <p class="hero-intro" id="heroIntro"></p>
+            <div class="hero-actions">
+              <a class="btn btn-dark" href="#work" data-magnetic>Смотреть работы <span>↓</span></a>
+              <a class="btn glass" href="#contact" data-magnetic>Написать</a>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-cue"><span>scroll</span><i></i></div>
+      </div>
+    </section>
+
+    <!-- Бегущая строка -->
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+    <!-- О СЕБЕ: виджеты -->
+    <section class="section about" id="about" data-title="Обо мне">
+      <header class="section-head">
+        <span class="eyebrow">01 — Обо мне</span>
+        <h2 class="split">Дизайнер с руками <em>художника</em> и головой <em>инженера</em></h2>
+      </header>
+      <div class="about-grid">
+        <div class="about-text glass" id="aboutText"></div>
+        <div class="widgets" id="widgets"></div>
+      </div>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <!-- РАБОТЫ -->
+    <section class="section work" id="work" data-title="Работы">
+      <header class="section-head row">
+        <div>
+          <span class="eyebrow">02 — Избранные проекты</span>
+          <h2 class="split">Работы, за которые <em>не стыдно</em></h2>
+        </div>
+        <div class="filters glass" id="filters" data-liquid><span class="filter-pill" id="filterPill"></span></div>
+      </header>
+      <div class="projects" id="projects"></div>
+    </section>
+
+    <!-- SHOWREEL -->
+    <section class="section reel-section" id="reel" data-title="Showreel">
+      <header class="section-head">
+        <span class="eyebrow">03 — Showreel 2026</span>
+        <h2 class="split">Ролик, собранный <em>прямо в браузере</em></h2>
+        <p class="lead">Никакого видео: каждый кадр — это код на anime.js. Таймлайн можно поставить на паузу и перемотать.</p>
+      </header>
+      <div class="reel glass" id="reelBox">
+        <div class="reel-stage" id="reelStage"></div>
+        <div class="reel-controls">
+          <button class="reel-play" id="reelPlay" aria-label="Пауза"><svg viewBox="0 0 24 24"><path class="i-pause" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/><path class="i-play" d="M7 4.5v15l12-7.5z"/></svg></button>
+          <input class="reel-scrub" id="reelScrub" type="range" min="0" max="1000" value="0" aria-label="Перемотка">
+          <span class="reel-time mono" id="reelTime">00:00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- НАВЫКИ -->
+    <section class="section skills" id="skills" data-title="Навыки">
+      <header class="section-head">
+        <span class="eyebrow">04 — Навыки</span>
+        <h2 class="split">Что я умею <em>руками</em> и <em>головой</em></h2>
+      </header>
+      <div class="skills-grid" id="skillsGrid"></div>
+      <div class="new-skills">
+        <div class="new-head">
+          <span class="badge-new">NEW</span>
+          <h3>Прокачиваю прямо сейчас</h3>
+        </div>
+        <div class="new-grid" id="newSkills"></div>
+      </div>
+    </section>
+
+    <!-- ПРОЦЕСС + anatomy -->
+    <section class="section process" id="process" data-title="Процесс">
+      <header class="section-head">
+        <span class="eyebrow">05 — Процесс</span>
+        <h2 class="split">Магия — это <em>система</em></h2>
+      </header>
+      <div class="process-grid">
+        <ol class="steps" id="steps">
+          <li class="glass"><b>01</b><h4>Слушаю</h4><p>Интервью, данные, конкуренты. Нахожу настоящую проблему, а не ту, что в брифе.</p></li>
+          <li class="glass"><b>02</b><h4>Проектирую</h4><p>Сценарии, вайрфреймы, архитектура. Пробую десять решений, чтобы выбрать одно.</p></li>
+          <li class="glass"><b>03</b><h4>Оживляю</h4><p>Визуал, motion, прототип, который не отличить от продукта.</p></li>
+          <li class="glass"><b>04</b><h4>Запускаю</h4><p>Хендофф, токены, дизайн-ревью в коде и метрики после релиза.</p></li>
+        </ol>
+        <figure class="gauge glass">
+          <iframe src="assets/spacing-gauge.html?v=2" title="Интерактивная фигура: сетка 8pt как измерительный прибор" loading="lazy"></iframe>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ОБРАЗОВАНИЕ -->
+    <section class="section path" id="path" data-title="Путь">
+      <header class="section-head">
+        <span class="eyebrow">06 — Путь</span>
+        <h2 class="split">От акварели <em>до стекла</em></h2>
+      </header>
+      <div class="timeline" id="timeline">
+        <svg class="timeline-line" preserveAspectRatio="none" viewBox="0 0 4 100"><path id="timelinePath" d="M2 0V100"/></svg>
+      </div>
+    </section>
+
+    <!-- НАГРАДЫ -->
+    <section class="section awards" id="awards" data-title="Награды">
+      <header class="section-head">
+        <span class="eyebrow">07 — Заслуги</span>
+        <h2 class="split">Немного <em>блеска</em></h2>
+      </header>
+      <div class="medals" id="medals"></div>
+    </section>
+
+    <!-- ПЕСОЧНИЦА -->
+    <section class="section play" id="play" data-title="Песочница">
+      <header class="section-head row">
+        <div>
+          <span class="eyebrow">08 — Песочница</span>
+          <h2 class="split">Разбросанный <em>стол дизайнера</em></h2>
+        </div>
+        <p class="lead small">Хватай карточки и бросай — они живые. Двойной клик собирает всё обратно.</p>
+      </header>
+      <div class="desk glass" id="desk"></div>
+    </section>
+
+    <!-- ФАКТЫ -->
+    <section class="section facts" id="facts" data-title="Факты">
+      <header class="section-head">
+        <span class="eyebrow">09 — Уведомления</span>
+        <h2 class="split">Пять фактов <em>обо мне</em></h2>
+      </header>
+      <div class="notif-stack" id="notifs"></div>
+    </section>
+
+    <!-- КОНТАКТ: экран блокировки -->
+    <section class="section contact" id="contact" data-title="Контакт">
+      <div class="lock">
+        <div class="lock-bg"><img id="lockPhoto" src="assets/photo.png" alt=""></div>
+        <div class="lock-inner">
+          <div class="lock-date" id="lockDate"></div>
+          <div class="lock-time" id="lockTime">00:00</div>
+          <div class="lock-notif glass">
+            <span class="app-ico">✉︎</span>
+            <div><b>Новый проект?</b><p>Расскажите идею — отвечу в течение дня.</p></div>
+            <small>сейчас</small>
+          </div>
+          <div class="lock-reveal" id="lockReveal">
+            <a class="lock-mail" id="lockMail"></a>
+            <div class="lock-socials" id="lockSocials"></div>
+          </div>
+          <div class="slide glass" id="slide" data-liquid>
+            <span class="slide-text">смахните, чтобы написать</span>
+            <span class="slide-knob" id="slideKnob">→</span>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <span>© 2026 <b id="footName"></b></span>
+        <span class="mono">Сделано вручную · стекло, свет и anime.js</span>
+        <a href="#home">Наверх ↑</a>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Модальное окно проекта (iOS sheet) -->
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <article class="sheet glass" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-grabber"></div>
+    <button class="sheet-close glass" id="sheetClose" aria-label="Закрыть">✕</button>
+    <div class="sheet-body" id="sheetBody"></div>
+  </article>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="liquidDefs"></defs></svg>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
